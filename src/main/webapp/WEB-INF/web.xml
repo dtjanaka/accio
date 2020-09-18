@@ -16,4 +16,21 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
     <exception-type>java.lang.Throwable</exception-type>
     <location>/error</location>
   </error-page>
+  <!--
+  Redirect all HTTP to HTTPS
+  https://cloud.google.com/appengine/docs/standard/java/config/webxml#Secure_URLs
+  -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>all</web-resource-name>
+      <!-- 
+      Must begin with / for path mapping
+      https://stackoverflow.com/questions/8570805/can-we-use-regular-expressions-in-web-xml-url-patterns
+      -->
+      <url-pattern>/*</url-pattern> 
+    </web-resource-collection>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
 </web-app>
